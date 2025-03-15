@@ -1,0 +1,18 @@
+from selenium.webdriver.common.by import By
+class Locator:
+    name_input = (By.XPATH, '//*[@placeholder="* Имя"]')
+    surname_input = (By.XPATH, '//*[@placeholder="* Фамилия"]')
+    address_input = (By.XPATH, '//*[@placeholder="* Адрес: куда привезти заказ"]')
+    metro_input = (By.XPATH, '//*[@placeholder="* Станция метро"]')
+    phone_input = (By.XPATH, '//*[@placeholder="* Телефон: на него позвонит курьер"]')
+    submit_button = (By.XPATH, '//button[contains(text(), "Далее")]')
+    date_input = (By.XPATH, '//*[@placeholder="* Когда привезти самокат"]')
+    rental_period = (By.XPATH, "//div[contains(@class, 'Dropdown-menu') and contains(text(), 'трое суток')]")
+    checkbox = (By.XPATH, "//label[contains(text(), 'чёрный жемчуг')]")
+    comment_input = (By.XPATH, '//*[@placeholder="Комментарий для курьера"]')
+    order_button = (By.XPATH, '//button[contains(@class, "Button_Middle__1CSJM") and contains(text(), "Заказать")]')
+    order_button_top = (By.CLASS_NAME, "Button_Button__ra12g")
+    order_button_bottom = (By.CLASS_NAME, "Button_Middle__1CSJM")
+    scooter_logo = (By.CLASS_NAME, "Header_LogoScooter__3lsAR")
+    yandex_logo = (By.CLASS_NAME, "Header_LogoYandex__3TSOI")
+    dzen = (By.XPATH, "//span[contains(@class, 'dzen-layout--navigation-tab__text-2g') and contains(text(), 'Главная')]")
