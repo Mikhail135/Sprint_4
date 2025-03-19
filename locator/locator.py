@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+
 class Locator:
     name_input = (By.XPATH, '//*[@placeholder="* Имя"]')
     surname_input = (By.XPATH, '//*[@placeholder="* Фамилия"]')
@@ -7,7 +8,8 @@ class Locator:
     phone_input = (By.XPATH, '//*[@placeholder="* Телефон: на него позвонит курьер"]')
     submit_button = (By.XPATH, '//button[contains(text(), "Далее")]')
     date_input = (By.XPATH, '//*[@placeholder="* Когда привезти самокат"]')
-    rental_period = (By.XPATH, "//div[contains(@class, 'Dropdown-menu') and contains(text(), 'трое суток')]")
+    rental_dropdown = (By.CLASS_NAME, 'Dropdown-placeholder')
+    rental_period = (By.XPATH, "//div[contains(@class, 'Dropdown-option') and contains(text(), 'трое суток')]")
     checkbox = (By.XPATH, "//label[contains(text(), 'чёрный жемчуг')]")
     comment_input = (By.XPATH, '//*[@placeholder="Комментарий для курьера"]')
     order_button = (By.XPATH, '//button[contains(@class, "Button_Middle__1CSJM") and contains(text(), "Заказать")]')
@@ -16,3 +18,8 @@ class Locator:
     scooter_logo = (By.CLASS_NAME, "Header_LogoScooter__3lsAR")
     yandex_logo = (By.CLASS_NAME, "Header_LogoYandex__3TSOI")
     dzen = (By.XPATH, "//span[contains(@class, 'dzen-layout--navigation-tab__text-2g') and contains(text(), 'Главная')]")
+    order_completed = (By.CLASS_NAME, "Order_ModalHeader__3FDaJ")
+    order_action_yes = (By.XPATH, '//button[contains(@class, "Button_Button__ra12g") and contains(text(), "Да")]')
+    question_locator = (By.ID, "accordion__heading-")
+    answer_locator = (By.ID, "accordion__panel-")
+

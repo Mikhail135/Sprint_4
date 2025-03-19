@@ -1,44 +1,40 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
+import allure
+from pages.base_page import BasePage
 from locator.locator import Locator
+from selenium.webdriver.common.keys import Keys
 
-class OrderPage:
-    def __init__(self, driver):
-        self.driver = driver
+
+class OrderPage(BasePage):
+    @allure.step("Заполнение информации о клиенте")
     def fill_order_form(self, name, surname, address, metro, phone):
-        self.driver.find_element(*Locator.name_input).send_keys(name)
-        self.driver.find_element(*Locator.surname_input).send_keys(surname)
-        self.driver.find_element(*Locator.address_input).send_keys(address)
-        metro_click = self.driver.find_element(By.CLASS_NAME, 'select-search__input')
-        metro_click.click()
-        metro_click.send_keys(metro)
-        metro_click.send_keys(Keys.ARROW_DOWN)
-        metro_click.send_keys(Keys.ENTER)
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//*[@placeholder='* Телефон: на него позвонит курьер']")))
-        self.driver.find_element(*Locator.phone_input).send_keys(phone)
+        self.send_keys(Locator.name_input, name)
+        self.send_keys(Locator.surname_input, surname)
+        self.send_keys(Locator.address_input, address)
+        self.send_keys(Locator.metro_input, metro)
+        metro_input = self.find_element(Locator.metro_input)
+        metro_input.send_keys(Keys.ARROW_DOWN)
+        metro_input.send_keys(Keys.ENTER)
+        self.send_keys(Locator.phone_input, phone)
 
-    def second_form_order(self, date, comment):
-        date_send = self.driver.find_element(*Locator.date_input)
-        date_send.send_keys(date)
-        date_send.send_keys(Keys.ENTER)
-        self.driver.find_element(By.CLASS_NAME, 'Dropdown-placeholder').click()
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'Dropdown-menu')]"))).click()
-        self.driver.find_element(*Locator.checkbox).click()
-        self.driver.find_element(*Locator.comment_input).send_keys(comment)
-        self.driver.find_element(*Locator.order_button).click()
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
-                (By.XPATH, '//button[contains(@class, "Button_Button__ra12g") and contains(text(), "Да")]'))
-        ).click()
-        self.order_text = self.driver.find_element(By.CLASS_NAME, 'Order_ModalHeader__3FDaJ').text
-
-
-
-
+    @allure.step("Нажатие кнопки 'Далее'")
     def submit_order(self):
-        self.driver.find_element(*Locator.submit_button).click()
+        self.click(Locator.submit_button)
+
+    @allure.step("Заполнение доп. информации по заказу")
+    def second_form_order(self, date, comment):
+        date_input = self.find_element(Locator.date_input)
+        date_input.send_keys(date)
+        date_input.send_keys(Keys.ENTER)
+        self.find_element(Locator.rental_dropdown)
+        self.click(Locator.rental_dropdown)
+        self.find_element(Locator.rental_period)
+        self.click(Locator.rental_period)
+        self.click(Locator.checkbox)
+        self.send_keys(Locator.comment_input, comment)
+        self.click(Locator.order_button)
+        self.click(Locator.order_action_yes)
 
 
+    @property
+    def order_text(self):
+        return self.get_text(Locator.order_completed)
