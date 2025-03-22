@@ -3,6 +3,7 @@ import pytest
 from pages.home_page import HomePage
 from pages.order_page import OrderPage
 from data.data import order_data
+from data import data
 
 
 class TestOrderTop:
@@ -13,8 +14,8 @@ class TestOrderTop:
         order_data
     )
     def test_order_flow(self, driver, name, surname, address, metro, phone, date, comment):
-        driver.get("https://qa-scooter.praktikum-services.ru/")
         home_page = HomePage(driver)
+        home_page.get(data.site_link)
         home_page.click_order_button_top()
         order_page = OrderPage(driver)
         order_page.fill_order_form(name, surname, address, metro, phone)
